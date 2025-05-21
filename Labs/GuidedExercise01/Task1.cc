@@ -21,17 +21,38 @@ void reverseString(char str[])
 void toUpperCase(char str[])
 {
     // write code here
+    int length = strlen(str);
+    for (int i = 0; i < length; i++) {
+        if (str[i] >= 'a' && str[i] <= 'z') {
+            str[i] -= 32;
+        }
+    }
 }
 
 int countVowels(char str[])
 {
     // write code here
+    int length = strlen(str);
+    int count = 0;
+    for (int i = 0; i < length; i++) {
+        if (str[i] == 'A' || str[i] == 'E'|| str[i] == 'I'|| str[i] == 'O'|| str[i] == 'U'|| 
+            str[i] == 'a'|| str[i] == 'e'|| str[i] == 'i'|| str[i] == 'o'|| str[i] == 'u') {
+            count++;
+        }
+    }
+    return count;
 }
 
 // Function to replace all instances of a character in a string
 void replaceCharacter(char str[], char oldChar, char newChar)
 {
     // write code here
+    int length = strlen(str);
+    for (int i = 0; i < length; i++) {
+        if (str[i] == oldChar) {
+            str[i] = newChar;
+        }
+    }
 }
 
 int main()
@@ -40,7 +61,7 @@ int main()
 
     // Prompt user for a string
     // write code for input here
-    printf("Enter your String: \n");
+    printf("Enter your String: ");
     fgets(str, sizeof(str), stdin);
     str[strcspn(str,"\n")] = '\0';
 
