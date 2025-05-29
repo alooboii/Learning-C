@@ -3,8 +3,28 @@
 
 void safe_memcpy(void *dest, const void *src, size_t n) {
     //Implement this function
-}
+    if (src == NULL || dest == NULL) {  //if either is NULL do nothing
+        return;
+    }
+    char* d = (char*)dest;
+    const char* s = (const char*)src;
+    // 1) (s > d && d < s + n) --> overlapping case BUT safe Forward Copying
+    // 2) (s <= d && d >= s + n) --> non-overlapping case
+    // 3) (s > d || d >= s + n) --> non-overlapping case 
 
+    if (s > d || d >= s + n) { 
+        for (size_t i = 0; i < n; i++) {
+            d[i] = s[i];
+        }
+    }
+    // 4) (s <= d && d < s + n) --> overlapping case, dest is completely inside src (Backward Copying)
+    else { 
+        size_t i = n;
+        while(i--) {
+            d[i] = s[i];
+        }
+    }
+}
 
 
 
