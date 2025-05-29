@@ -6,6 +6,50 @@
 
 char* build_string() {
     //Implement this function
+    char* str = (char*)malloc(sizeof(char)*INITIAL_SIZE);
+    if (str == NULL) {
+        printf("Memory Allocation Failed!\n");
+        exit(1);
+    }
+    char ch;
+    int len = 0;
+    int size = INITIAL_SIZE;
+    while (1) {
+        printf("Enter a character: ");
+        ch = getchar();
+        if (ch == '\n') {
+            break;
+        }
+        //Flush the remaining input from stdin
+        int flush;
+        while(((flush = getchar()) != '\n') && (flush != EOF));
+        if (len >= size - 1) {
+            size *= 2;
+            char* temp = realloc(str, size * sizeof(char));
+            if (temp == NULL) {
+                free(str);
+                str = NULL;
+                printf("Memory Reallocation Failed!\n");
+                exit(1);
+            }
+            else {
+                str = temp;
+            }
+        }
+        str[len++] = ch;
+    }
+    str[len] = '\0';
+    char* temp = realloc(str, (len+1) * sizeof(char));
+    if (temp == NULL) {
+        free(str);
+        str = NULL;
+        printf("Memory Reallocation Failed!\n");
+        exit(1);
+    }
+    else {
+        str = temp;
+    }
+    return str;
 }
 
 
