@@ -6,12 +6,16 @@ void safe_memcpy(void *dest, const void *src, size_t n) {
     if (src == NULL || dest == NULL) {  //if either is NULL do nothing
         return;
     }
+    //PRINCIPLE: reading from src[i] should be done before dest[i] overwrites to it
+    //                  1) when dest and src dont overlap at all --> forward copy
+    //                  2) when they overlap:
+    //                          a) if src is greater than dest --> forward copy
+    //                          b) if dest is greater than src and is inside src's range --> Backward Copy                         
     char* d = (char*)dest;
     const char* s = (const char*)src;
     // 1) (s > d && d < s + n) --> overlapping case BUT safe Forward Copying
     // 2) (s <= d && d >= s + n) --> non-overlapping case
     // 3) (s > d || d >= s + n) --> non-overlapping case 
-
     if (s > d || d >= s + n) { 
         for (size_t i = 0; i < n; i++) {
             d[i] = s[i];
