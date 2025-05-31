@@ -58,8 +58,8 @@ int count(Node* head, int searchFor) {
 
 int evaluatePolynomial(Node* head, int x) {
 	if (!head) return 0;
-	int i = 0, result = 0;
-	Node* current = head;
+	int i = 1, result = head->data;
+	Node* current = head->next;
 	while (current) {
 		result += current->data * (pow(x,i++));
 		current = current->next;
